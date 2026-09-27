@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ÇEEİ Doktora Tezlerinin Kaynakça Bibliyografyası</title>
+<meta name="description" content="Türkiye'de Çalışma Ekonomisi ve Endüstri İlişkileri alanındaki 1.003 doktora tezinin kaynakçalarından derlenen 191.151 kaynağın APA 7 biçiminde aranabilir dizini.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand">
+      <h1>ÇEEİ Doktora Tezlerinin Kaynakça Bibliyografyası</h1>
+      <p class="sub" id="sub">Çalışma Ekonomisi ve Endüstri İlişkileri Doktora Tezlerinin kaynakçalarının bibliyografyası</p>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Bölümler">
+      <button role="tab" id="tab-kaynaklar" aria-selected="true" data-tab="kaynaklar">Kaynaklar</button>
+      <button role="tab" id="tab-tezler" aria-selected="false" data-tab="tezler">Tezler</button>
+      <button role="tab" id="tab-hakkinda" aria-selected="false" data-tab="hakkinda">Hakkında</button>
+    </nav>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="Açık/koyu tema">◐</button>
+  </div>
+  <div class="load" id="load" aria-hidden="true"><i id="loadBar"></i></div>
+</header>
+
+<main class="wrap">
+  <!-- ================= KAYNAKLAR ================= -->
+  <section id="p-kaynaklar" role="tabpanel" aria-labelledby="tab-kaynaklar">
+    <form class="search" id="searchForm" role="search" autocomplete="off">
+      <div class="qrow">
+        <select id="alan" aria-label="Arama alanı">
+          <option value="tum">Tüm alanlar</option>
+          <option value="yazar">Yazar</option>
+          <option value="baslik">Başlık</option>
+        </select>
+        <input type="search" id="q" placeholder="örn. sendika, Koray, &quot;refah devleti&quot;, esneklik -hukuk" aria-label="Arama sözcükleri">
+        <button type="submit" class="primary">Ara</button>
+      </div>
+      <div class="filters">
+        <div class="f f-tur"><span class="lbl">Tür</span><div class="chips" id="turChips"></div></div>
+        <div class="f"><label class="lbl" for="y1">Yayın yılı</label><div class="yr"><input id="y1" type="number" inputmode="numeric" min="1500" max="2030" placeholder="en erken"><span>–</span><input id="y2" type="number" inputmode="numeric" min="1500" max="2030" placeholder="en geç"></div></div>
+        <div class="f"><label class="lbl" for="min">En az atıf</label>
+          <select id="min"><option value="1">1 tez</option><option value="2">2 tez</option><option value="3">3 tez</option><option value="5">5 tez</option><option value="10">10 tez</option><option value="20">20 tez</option><option value="40">40 tez</option></select></div>
+        <div class="f"><label class="lbl" for="uni">Atıf yapan üniversite</label><input id="uni" list="uniList" placeholder="Üniversite seçin"><datalist id="uniList"></datalist></div>
+        <div class="f"><label class="lbl" for="dan">Atıf yapan tezin danışmanı</label><input id="dan" list="danList" placeholder="Danışman seçin"><datalist id="danList"></datalist></div>
+        <div class="f"><label class="lbl" for="dil">Atıf yapan tezin dili</label>
+          <select id="dil"><option value="">Hepsi</option><option value="tr">Türkçe tez</option><option value="en">İngilizce tez</option></select></div>
+        <div class="f f-sw">
+          <label class="sw"><input type="checkbox" id="grup"> <span>Baskıları birleştir</span></label>
+          <button type="button" class="link" id="clearBtn">Filtreleri temizle</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="bar">
+      <div class="count" id="count" aria-live="polite">Veri yükleniyor…</div>
+      <div class="acts">
+        <label class="sr" for="sira">Sırala</label>
+        <select id="sira"><option value="atif">Atıf sayısı</option><option value="yeni">Yeniden eskiye</option><option value="eski">Eskiden yeniye</option><option value="yazar">Yazar (A–Z)</option></select>
+        <button type="button" class="btn" id="copyAll">APA listesini kopyala</button>
+        <button type="button" class="btn" id="csvBtn">CSV</button>
+        <button type="button" class="btn" id="risBtn">RIS</button>
+      </div>
+    </div>
+    <ol class="results" id="results"></ol>
+    <div class="more"><button type="button" class="btn" id="moreBtn" hidden>Daha fazla göster</button></div>
+  </section>
+
+  <!-- ================= TEZLER ================= -->
+  <section id="p-tezler" role="tabpanel" aria-labelledby="tab-tezler" hidden>
+    <div class="search tz">
+      <div class="qrow"><input type="search" id="tq" placeholder="Tez yazarı, üniversite, danışman ya da anabilim dalı ara" aria-label="Tezlerde ara"></div>
+      <div class="filters">
+        <div class="f"><label class="lbl" for="tuni">Üniversite</label><select id="tuni"><option value="">Hepsi</option></select></div>
+        <div class="f"><label class="lbl" for="tyil1">Yıl</label><div class="yr"><input id="tyil1" type="number" placeholder="en erken"><span>–</span><input id="tyil2" type="number" placeholder="en geç"></div></div>
+        <div class="f"><label class="lbl" for="tdil">Dil</label><select id="tdil"><option value="">Hepsi</option><option>Türkçe</option><option>İngilizce</option></select></div>
+      </div>
+    </div>
+    <div class="bar"><div class="count" id="tcount"></div><div class="acts"><button type="button" class="btn" id="tcsv">CSV</button></div></div>
+    <div class="twrap"><table class="tt" id="ttable"><thead></thead><tbody></tbody></table></div>
+    <div class="more"><button type="button" class="btn" id="tmore" hidden>Daha fazla göster</button></div>
+  </section>
+
+  <!-- ================= HAKKINDA ================= -->
+  <section id="p-hakkinda" role="tabpanel" aria-labelledby="tab-hakkinda" hidden>
+    <div class="about">
+      <h2>Bu dizin nedir?</h2>
+      <p>Türkiye'de çalışma ekonomisi ve endüstri ilişkileri (ÇEEİ) ile yakın disiplinlerde hazırlanmış <b id="aTez">1.003</b> doktora tezinin kaynakçaları ayrıştırılarak APA 7 formatında bibliyografyaya dönüştürülmüştür. Dizinde <b id="aKay">191.151</b> tekil kaynak kaydı bulunmaktadır. Her kaydın yanında, kaç tezin kaynakçasında yer aldığı (<i>atıf</i>), ilk ve son atıf yılı ile kaynağa en sık atıf yapan üç üniversite ve üç danışman gösterilir.</p>
+      <div class="stats" id="aStats"></div>
+      <h2>Nasıl aranır?</h2>
+      <ul>
+        <li>Sözcükler birlikte aranır: <code>sendika kadın</code> her iki sözcüğü içeren kayıtları getirir.</li>
+        <li>Tırnak içindeki ifade bütün olarak aranır: <code>"sosyal güvenlik"</code>.</li>
+        <li>Başına eksi konan sözcük dışlanır: <code>esneklik -hukuk</code>.</li>
+        <li>Türkçe karakterler ve büyük/küçük harf fark etmez: <code>calisma</code> ile <code>Çalışma</code> aynı sonucu verir.</li>
+        <li><b>Baskıları birleştir</b> açıkken aynı eserin farklı baskı ve yazım kayıtları tek satırda toplanır; gösterilen atıf, tüm varyantların toplamıdır.</li>
+        <li>Arama adresi paylaşılabilir: sayfanın adresi, yaptığınız aramayı ve filtreleri içerir.</li>
+      </ul>
+      <h2>Yöntem ve sınırlılıklar</h2>
+      <ul>
+        <li><b>Atıf</b>, bir kaynağın bir tezin kaynakçasında yer almasıdır; metin içi atıf sıklığı sayılmamıştır.</li>
+        <li>Kaynak kayıtları tez PDF'lerinden otomatik ayrıştırılmıştır. Bazı kayıtlarda karakter bozulmaları (örneğin <i>Çalı şma</i>), birleşmiş kaynaklar ya da yanlış tür ataması bulunabilir.</li>
+        <li><b>Eser birleştirme</b>, ilk yazarın soyadı ile başlığın Türkçe karakterlerden ve noktalamadan arındırılmış ilk 28 karakterine dayanır. Kurumsal yazarlarda (ILO, OECD, TÜİK vb.) yayın yılı da dikkate alınır. Birleştirme sonucunda 171.624 eser elde edilir.</li>
+        <li>Üniversite ve danışman filtreleri, her kaynak için kayıtlı olan <b>en sık atıf yapan üç</b> üniversite ve danışmana dayanır. Çok sayıda üniversitede atıf alan kaynaklarda bu liste eksik kalabilir.</li>
+      </ul>
+      <h2>Kaynak gösterme</h2>
+      <p class="cite" id="citeText">[Çalış, Şuayyip]. (2026). <i>ÇEEİ Doktora Tezlerinin Kaynakça Bibliyografyası</i> [Veri seti ve arama motoru].</p>
+      <p class="small">Veri oluşturma tarihi: <span id="aTarih">–</span>. Veriyi yeniden üretmek için depodaki <code>build/build_data.py</code> betiğine bakın.</p>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/engine.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
